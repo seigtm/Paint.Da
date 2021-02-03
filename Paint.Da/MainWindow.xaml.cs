@@ -1,38 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Paint.Da
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            MyComboBox.SelectedIndex = 0;
-            MyRadioButtonPainting.IsChecked = true;
-            MySlider.Value = 10;
-            MySlider.Minimum = 1;
+            // При инициализации главной формы:
+            MyComboBox.SelectedIndex = 0;           // Устанавливаем ComboBox с выбором цвета в позицию 0.
+            MyRadioButtonPainting.IsChecked = true; // Устанавливаем RadioButton рисования в позицию checked.
+            MySlider.Value = 10;                    // Размер кисти = 10.
+            MySlider.Minimum = 1;                   // Минимальный размер кисти = 1.
         }
 
+        // Обработчик выбора цвета в ComboBox.
         private void MyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem selectedComboBoxItem = (ComboBoxItem)MyComboBox.SelectedItem;
-
+            // В зависимости от выбранного item в ComboBox, устанавливаем необходимый цвет кисти.
             switch (selectedComboBoxItem.Content.ToString())
             {
                 case "Black":
@@ -53,9 +41,11 @@ namespace Paint.Da
             }
         }
 
+        // Обработчик выбора RadioButton с доступными действиями над канвасом.
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton selectedRadioButton = (RadioButton)sender;
+            // В зависимости от выбранного RadioButton, изменяем режим редактирования канваса.
             switch (selectedRadioButton.Content.ToString())
             {
                 case "Рисование":
@@ -67,22 +57,19 @@ namespace Paint.Da
                     break;
 
                 case "Удаление":
-                    MessageBoxResult clearingMode = 
+                    MessageBoxResult clearingMode =
                         MessageBox.Show("Удаление ластиком (если нет - фигуры целиком)?",
                                         "Выбор режима удаления",
                                         MessageBoxButton.YesNo,
                                         MessageBoxImage.Exclamation);
-                    
-                    if (clearingMode == MessageBoxResult.Yes)
-                    {
-                        MyInkCanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
-                        break;
-                    }
-                    MyInkCanvas.EditingMode = InkCanvasEditingMode.EraseByStroke;
+                    MyInkCanvas.EditingMode = (clearingMode == MessageBoxResult.Yes)
+                                               ? InkCanvasEditingMode.EraseByPoint
+                                               : InkCanvasEditingMode.EraseByStroke;
                     break;
             }
         }
 
+        // Обработчик нажатия на кнопку "О программе".
         private void Button_About_Clicked(object sender, RoutedEventArgs e)
         {
             _ = MessageBox.Show("  Графический растровый редактор Paint.Da предназначен для создания простейших зарисовок." +
@@ -90,22 +77,18 @@ namespace Paint.Da
                 "\n  Все права защищены законодательством РФ.", "О программе!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        // Обработчик изменения положения слайдера.
         private void MySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            // Меняем размер кисти в соответствии со значением слайдера.
             MyInkCanvas.DefaultDrawingAttributes.Width = MyInkCanvas.DefaultDrawingAttributes.Height = e.NewValue;
         }
 
+        // Обработчик нажатия на кнопку "Очистка листа".
         private void Button_Erase_Clicked(object sender, RoutedEventArgs e)
         {
+            // Очищаем канвас.
             MyInkCanvas.Strokes.Clear();
         }
     }
 }
-
-/*
-    Рисование      InkCanvas1.EditingMode = InkCanvasEditingMode.Ink;
-    Редактирование InkCanvas1.EditingMode = InkCanvasEditingMode.Select;
-    Удаление       InkCanvas1.EditingMode = InkCanvasEditingMode.EraseByStroke;
-    Удаление       InkCanvas1.EditingMode = InkCanvasEditingMode.EraseByPoint;
-    Удаление       InkCanvas1.Strokes.Clear();
-*/

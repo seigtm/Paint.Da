@@ -5,35 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Paint.Da" Height="450" Width="900">
-	<Window.Resources>
-		<Style TargetType="RadioButton">
-			<Setter Property="FontSize" Value="14"/>
-			<Setter Property="Margin" Value="5"/>
-		</Style>
 
-		<Style TargetType="ComboBox">
-			<Setter Property="FontSize" Value="14"/>
-			<Setter Property="Margin" Value="5, 0, 5, 0"/>
-		</Style>
-		
-		<Style TargetType="Slider">
-			<Setter Property="FontSize" Value="14"/>
-			<Setter Property="Margin" Value="5"/>
-		</Style>
-		
-		<Style TargetType="Button">
-			<Setter Property="FontSize" Value="14"/>
-			<Setter Property="Margin" Value="5, 0, 5, 0"/>
-			<Setter Property="Padding" Value="5, 0, 5, 5"/>
-		</Style>
-	</Window.Resources>
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="30"/>
-			<RowDefinition Height="2*"/>
-		</Grid.RowDefinitions>
+    <Window.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
 
-		<WrapPanel Grid.Row="0" 
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5, 0, 5, 0"/>
+        </Style>
+
+        <Style TargetType="Slider">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5, 0, 5, 0"/>
+            <Setter Property="Padding" Value="5, 0, 5, 5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" 
                    Orientation="Horizontal" 
                    Background="Silver">
             <Button Content="О программе" Click="Button_About_Clicked"/>
@@ -46,7 +48,7 @@
             <RadioButton Content="Удаление" 
                          x:Name="MyRadioButtonClearing"
 						 Checked="RadioButton_Checked"/>
-			<Button Content="Очистка листа"
+            <Button Content="Очистка листа"
 					Click="Button_Erase_Clicked"/>
 
             <ComboBox Width="100"
@@ -72,6 +74,5 @@
                                    Height="10"/>
             </InkCanvas.DefaultDrawingAttributes>
         </InkCanvas>
-        
     </Grid>
 </Window>
